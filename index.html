@@ -1,0 +1,2800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agile Prime - General Contracting L.L.C</title>
+
+  <!-- Tailwind CDN -->
+  <script>
+    tailwind = null;
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            playfair: ['"Playfair Display"', 'serif'],
+            inter: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            apGold: '#D4AF37',
+            apGoldSoft: '#E8D5B7'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    
+   :root {
+  --color-gold: #D4AF37;
+  --color-gold-light: #E8D5B7;
+  --scroll-progress: 0; /* مهم للدايرة اللي حوالين الزر */
+}
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-fade {
+      background: radial-gradient(circle at top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.15));
+    }
+
+    .gold-text {
+      color: var(--color-gold);
+    }
+
+    .gold-border {
+      border-color: var(--color-gold);
+    }
+
+    .gold-hover:hover {
+      color: var(--color-gold);
+    }
+
+    .gold-btn {
+      background-image: linear-gradient(135deg, #D4AF37, #a87f19);
+      color: #111827;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .gold-btn:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .glass-effect {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .light-glass {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .scroll-indicator {
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #D4AF37, #a87f19);
+      transition: width 0.2s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+  </style>
+  <style>
+        .hero-photo-main {
+      animation: heroFloat 16s ease-in-out infinite;
+    }
+
+    .hero-photo-small {
+      animation: heroFloatSmall 14s ease-in-out infinite;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes heroFloatSmall {
+      0%, 100% { transform: translateY(4px); }
+      50% { transform: translateY(-8px); }
+    }
+
+  </style>
+  <style>
+        /* MAP SECTION */
+    .map-shell{
+      position:relative;
+      border-radius:1.5rem;
+      overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,.55);
+      border:1px solid rgba(212,175,55,.65); /* gold */
+      background:#000;
+    }
+    .map-shell iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      filter:saturate(1.1) contrast(1.05);
+    }
+    .map-shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top,rgba(0,0,0,.55),transparent 60%);
+      pointer-events:none;
+    }
+
+    .map-pin{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      background:#D4AF37;
+      box-shadow:0 0 0 8px rgba(212,175,55,.35);
+      pointer-events:none;
+    }
+    .map-pin::after{
+      content:"";
+      position:absolute;
+      inset:-4px;
+      border-radius:999px;
+      border:2px solid rgba(212,175,55,.9);
+      animation:mapPulse 1.8s ease-out infinite;
+    }
+    @keyframes mapPulse{
+      0%{transform:scale(1);opacity:1;}
+      100%{transform:scale(1.7);opacity:0;}
+    }
+
+  </style>
+  <style>
+    /* ===== CINEMATIC MAP SECTION ===== */
+.map-section-wrap{
+  position:relative;
+  overflow:hidden;
+}
+
+/* خلفية خفيفة فيها جريد / دوائر */
+.map-bg-orbit{
+  position:absolute;
+  inset:0;
+  opacity:0.18;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(212,175,55,.45),transparent 55%),
+    radial-gradient(circle at 80% 100%,rgba(15,23,42,.8),transparent 60%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(148,163,184,.28) 0,
+      rgba(148,163,184,.28) 1px,
+      transparent 1px,
+      transparent 10px
+    );
+}
+
+/* كادر الخريطة نفسه */
+.map-shell-hero{
+  position:relative;
+  border-radius:28px;
+  overflow:hidden;
+  background:#020617;
+  box-shadow:0 30px 90px rgba(0,0,0,.75);
+  border:1px solid rgba(212,175,55,.75);
+}
+
+/* إطار جولد حوالين الكادر */
+.map-shell-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:28px;
+  padding:2px;
+  background:conic-gradient(
+    from 220deg,
+    rgba(212,175,55,.0),
+    rgba(212,175,55,.9),
+    rgba(148,163,184,.2),
+    rgba(212,175,55,.0)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  pointer-events:none;
+}
+
+/* الـ iframe نفسه */
+.map-shell-hero iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  filter:saturate(1.1) contrast(1.05);
+}
+
+/* غطاء جريد خفيف فوق الخريطة */
+.map-glass-overlay{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top,rgba(0,0,0,.45),transparent 65%);
+  pointer-events:none;
+}
+
+/* رادار متحرك على الخريطة */
+.map-radar{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:180px;
+  height:180px;
+  border-radius:999px;
+  background:radial-gradient(circle,rgba(212,175,55,.35) 0,transparent 60%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+.map-radar::before{
+  content:"";
+  position:absolute;
+  inset:12%;
+  border-radius:999px;
+  border:1px solid rgba(248,250,252,.45);
+}
+.map-radar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  background:conic-gradient(
+    from 0deg,
+    rgba(212,175,55,.5),
+    rgba(212,175,55,0) 40%
+  );
+  animation:radarSweep 4s linear infinite;
+  mix-blend-mode:screen;
+}
+
+@keyframes radarSweep{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+/* نقطة اللوكيشن في النص */
+.map-pin-center{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:12px;
+  height:12px;
+  border-radius:999px;
+  background:#D4AF37;
+  box-shadow:0 0 0 8px rgba(212,175,55,.35);
+}
+.map-pin-center::after{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  border-radius:999px;
+  border:1px solid rgba(248,250,252,.9);
+}
+
+/* حركة طفو بسيطة للكادر */
+.map-float{
+  animation:mapFloat 8s ease-in-out infinite;
+}
+@keyframes mapFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+/* تابل صغير فوق الخريطة */
+.map-tag-pill{
+  position:absolute;
+  top:18px;
+  left:22px;
+  padding:5px 14px;
+  border-radius:999px;
+  background:rgba(15,23,42,.78);
+  border:1px solid rgba(148,163,184,.6);
+  color:#E5E7EB;
+  font-size:.68rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+/* إنفو كارد صغير تحت يمين */
+.map-info-card{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  border-radius:16px;
+  padding:10px 14px;
+  background:rgba(15,23,42,.88);
+  border:1px solid rgba(148,163,184,.7);
+  color:#E5E7EB;
+  font-size:.75rem;
+  backdrop-filter:blur(10px);
+}
+.map-info-title{
+  font-size:.68rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#9CA3AF;
+  margin-bottom:2px;
+}
+.map-info-main{
+  font-size:.8rem;
+  font-weight:600;
+}
+.map-info-sub{
+  font-size:.7rem;
+  color:#D1D5DB;
+}
+
+  </style>
+
+  <style>
+  /* Watermark Animation */
+  @keyframes apWatermarkFloat {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 0.08;
+    }
+    50% {
+      transform: translateY(-6px);
+      opacity: 0.12;
+    }
+  }
+
+  .ap-watermark {
+    animation: apWatermarkFloat 8s ease-in-out infinite;
+  }
+</style>
+<style>
+  /* ===== Premium Light Theme for Agile Prime ===== */
+  body:not(.dark) {
+    background: #f3f1eb;
+    background-image:
+      radial-gradient(#e9e2d4 1px, transparent 1px),
+      radial-gradient(#e9e2d4 1px, transparent 1px);
+    background-size: 110px 110px, 130px 130px;
+    background-position: 0 0, 55px 55px; /* يعطيها إحساس هندسي بسيط */
+    color: #1a1a1a;
+  }
+
+  /* Sections */
+  body:not(.dark) section {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+    padding: 45px 0;
+  }
+
+  /* Headings */
+  body:not(.dark) h1,
+  body:not(.dark) h2,
+  body:not(.dark) h3 {
+    color: #171614;
+    letter-spacing: -0.5px;
+  }
+
+  /* Gold separator line */
+  body:not(.dark) .gold-line {
+    height: 3px;
+    width: 85px;
+    background: linear-gradient(to right, #d4af37, #b68f29, #d4af37);
+    border-radius: 50px;
+    margin: 12px 0 22px;
+  }
+
+  /* Cards */
+  body:not(.dark) .ap-card {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(212, 175, 55, 0.14);
+    border-radius: 12px;
+    transition: 0.25s;
+  }
+  body:not(.dark) .ap-card:hover {
+    border-color: rgba(212, 175, 55, 0.32);
+    box-shadow: 0 10px 28px rgba(212, 175, 55, 0.25);
+    transform: translateY(-4px);
+  }
+
+  /* Navbar */
+  body:not(.dark) nav {
+    background: rgba(245, 241, 235, 0.94);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.17);
+  }
+
+  /* Footer */
+  body:not(.dark) footer {
+    background: #eae4d5;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+  }
+
+  /* Buttons */
+  body:not(.dark) .btn-gold {
+    background: linear-gradient(135deg, #d4af37, #b68f29);
+    color: #111;
+    font-weight: 600;
+    transition: 0.25s;
+  }
+  body:not(.dark) .btn-gold:hover {
+    background: linear-gradient(135deg, #b68f29, #d4af37);
+    transform: translateY(-1px);
+  }
+  /* ===== BACK TO TOP – PREMIUM MOTION + PROGRESS RING ===== */
+
+#backToTop {
+  backdrop-filter: blur(14px);
+  transform: translateY(20px) scale(.9);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+/* حالة الظهور */
+#backToTop.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  animation: apFloat 4s ease-in-out infinite;
+}
+
+/* حالة الإخفاء */
+#backToTop.hide {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(.9);
+}
+
+/* جلو + دايرة progress حوالين الزر */
+#backToTop::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  padding: 2px;
+  background:
+    conic-gradient(
+      from -90deg,
+      rgba(212,175,55,1) calc(var(--scroll-progress) * 1%),
+      rgba(148,163,184,0.2) 0
+    );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: .9;
+}
+
+/* جلو خفيف إضافي */
+#backToTop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  box-shadow: 0 0 18px rgba(212,175,55,0.4);
+  opacity: .0;
+  transition: opacity .25s ease;
+}
+
+/* Hover – لمعة وبوب خفيف */
+#backToTop:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 22px 55px rgba(0,0,0,0.6);
+}
+
+#backToTop:hover::after {
+  opacity: .8;
+}
+
+/* حركة السهم جوّه الزر */
+.back-to-top-arrow {
+  display: inline-block;
+  animation: arrowBounce 1.4s ease-in-out infinite;
+}
+
+/* لما تعمل hover على الزر خلي السهم يعمل موشن بسيط */
+#backToTop:hover .back-to-top-arrow {
+  animation: arrowHover 0.5s ease forwards;
+}
+
+/* فلووت بسيط للزر */
+@keyframes apFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+
+/* بونس خفيف للسهم */
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateY(1px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Hover موشن للسهم */
+@keyframes arrowHover {
+  0%   { transform: translateY(0) rotate(0deg); }
+  50%  { transform: translateY(-2px) rotate(-10deg); }
+  100% { transform: translateY(-1px) rotate(0deg); }
+}
+
+
+</style>
+
+<!-- Local styles for contact animation -->
+  <style>
+    .contact-orbit {
+      position: absolute;
+      border-radius: 9999px;
+      border: 1px solid rgba(212, 175, 55, 0.18);
+    }
+    .contact-orbit-1 {
+      width: 380px;
+      height: 380px;
+      top: -140px;
+      right: -80px;
+      animation: contact-float 18s linear infinite;
+    }
+    .contact-orbit-2 {
+      width: 260px;
+      height: 260px;
+      bottom: -120px;
+      left: -40px;
+      animation: contact-float 22s linear infinite reverse;
+    }
+    @keyframes contact-float {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+      50% { transform: translate3d(10px, -10px, 0) rotate(3deg); }
+      100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    }
+  </style>
+<!-- حط الستايل ده مرة واحدة في الصفحة (يفضل قبل </body>) -->
+<style>
+  /* Marquee container */
+  .logo-marquee {
+    position: relative;
+    overflow: hidden;
+    padding: 1.4rem 0;
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+
+  .logo-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-left 22s linear infinite;
+  }
+
+  .logo-marquee-2 .logo-track {
+    animation: marquee-right 26s linear infinite;
+  }
+
+  .logo-group {
+    display: flex;
+    gap: 3.5rem;
+    padding-inline: 2.5rem;
+  }
+
+  .logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 110px;
+    padding-inline: 0.75rem;
+    position: relative;
+    transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+    opacity: 0.7;
+    filter: grayscale(100%);
+  }
+
+  .logo-item img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .logo-item::before {
+    content: "";
+    position: absolute;
+    inset: -0.3rem;
+    border-radius: 999px;
+    border: 1px solid rgba(212, 175, 55, 0.0);
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .logo-item:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: translateY(-3px) scale(1.03);
+  }
+
+  .logo-item:hover::before {
+    border-color: rgba(212, 175, 55, 0.7);
+    box-shadow: 0 0 22px rgba(212, 175, 55, 0.18);
+  }
+
+  @keyframes marquee-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes marquee-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+
+  /* موبايل: خلي السرعة أبطأ شوية */
+  @media (max-width: 768px) {
+    .logo-track {
+      animation-duration: 26s;
+    }
+    .logo-marquee-2 .logo-track {
+      animation-duration: 30s;
+    }
+    .logo-group {
+      gap: 2rem;
+      padding-inline: 1.5rem;
+    }
+    .logo-item img {
+      height: 36px;
+    }
+  }
+</style>
+
+</head>
+
+<body class="bg-white text-black font-inter transition-colors duration-300">
+  <div class="min-h-screen dark:bg-black dark:text-white">
+
+ <!-- NAVBAR -->
+<nav
+  class="fixed top-0 w-full z-50 border-b border-gray-200/70 dark:border-gray-800/80 bg-white/90 dark:bg-black/90 backdrop-blur-xl">
+
+  <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+
+    <!-- Brand -->
+    <div class="flex items-center gap-3">
+      <img
+        src="assets/images/logo.png"
+        alt="Agile Prime Logo"
+        class="h-11 md:h-12 w-auto object-contain"
+      />
+
+      <div class="leading-tight">
+        <div class="text-xs tracking-[0.25em] font-semibold uppercase text-gray-900 dark:text-gray-100">
+          AGILE PRIME General Contracting L.L.C
+        </div>
+        <!-- <div class="text-[11px] text-gray-500 dark:text-gray-400">
+          Main Contractor · Dubai · UAE
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="hidden md:flex gap-6 items-center text-[13px] font-medium">
+      <a href="#about" class="nav-link gold-hover text-gray-700 dark:text-gray-200">About</a>
+      <a href="#services" class="nav-link gold-hover text-gray-700 dark:text-gray-200">Services</a>
+      <a href="#projects" class="nav-link gold-hover text-gray-700 dark:text-gray-200">Projects</a>
+      <a href="#team" class="nav-link gold-hover text-gray-700 dark:text-gray-200">Team</a>
+      <a href="#clients" class="nav-link gold-hover text-gray-700 dark:text-gray-200">Clients</a>
+      <a href="#contact" class="nav-link gold-hover text-gray-700 dark:text-gray-200">Contact</a>
+
+      <a href="#contact"
+        class="ml-3 inline-flex items-center rounded-full border border-amber-500/70 px-4 py-1.5 text-[11px] tracking-[0.16em] uppercase font-semibold gold-btn">
+        Talk to our team
+      </a>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button id="themeToggle"
+      class="theme-toggle text-xl h-9 w-9 flex items-center justify-center rounded-full border border-gray-300/80 dark:border-gray-700/80 bg-white/70 dark:bg-zinc-900 shadow-sm">
+      🌙
+    </button>
+
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center overflow-hidden pt-20" id="home">
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <img src="assets/images/project-hero.png" alt="Agile Prime site in Dubai"
+         class="w-full h-full object-cover opacity-70 dark:opacity-50">
+    <!-- Gradient لتحسين الكونتراست -->
+   <div class="absolute inset-0 bg-gradient-to-br from-black/95 via-black/85 to-black/70"></div>
+
+  </div>
+
+  <!-- LOGO WATERMARK -->
+  <div class="absolute inset-y-0 left-0 pointer-events-none hidden md:flex items-center pl-6 lg:pl-10">
+    <img
+      src="assets/images/logo.png"
+      alt="Agile Prime Logo Watermark"
+      class="w-[260px] lg:w-[320px] object-contain opacity-[0.05]"
+    />
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+    <!-- LEFT: TEXT -->
+    <div class="text-white">
+      <div
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/10
+               text-[11px] tracking-[0.22em] uppercase mb-4">
+        <span class="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_0_5px_rgba(250,204,21,0.35)]"></span>
+        Main Contractor · Dubai
+      </div>
+
+      <p class="text-[12px] md:text-[13px] tracking-[0.26em] uppercase text-gray-200/80 mb-3">
+        Built by engineers · Powered by our workforce
+      </p>
+
+      <h1 class="font-playfair text-4xl md:text-5xl lg:text-[2.9rem] font-semibold leading-tight mb-4">
+        <span class="gold-text">Engineered</span> to build,<br>
+        delivered by a workforce we own.
+      </h1>
+
+      <p class="text-sm md:text-base lg:text-[17px] text-gray-100/90 mb-3 max-w-xl leading-relaxed">
+        Agile Prime General Contracting L.L.C. is an engineer-led main contractor in Dubai, executing towers,
+        villa communities and complex assets with one unified team — not layers of subcontractors.
+      </p>
+
+      <p class="text-sm md:text-[15px] text-gray-200/85 mb-5 max-w-xl leading-relaxed">
+        Structure, MEP, finishing and manpower run under one programme and one culture — giving cleaner coordination
+        and predictable handover across the UAE, Egypt and Saudi Arabia.
+      </p>
+
+      <!-- أنواع المشاريع = تبين إنك شركة كبيرة -->
+      <div class="flex flex-wrap gap-2 mb-6 text-[10px] md:text-[11px]">
+        <span class="px-3 py-1 rounded-full bg-black/45 border border-white/20 text-gray-100 uppercase tracking-[0.18em]">
+          High-rise towers
+        </span>
+        <span class="px-3 py-1 rounded-full bg-black/45 border border-white/20 text-gray-100 uppercase tracking-[0.18em]">
+          Hotels & hospitality
+        </span>
+        <span class="px-3 py-1 rounded-full bg-black/45 border border-white/20 text-gray-100 uppercase tracking-[0.18em]">
+          Communities & villas
+        </span>
+        <span class="px-3 py-1 rounded-full bg-black/45 border border-white/20 text-gray-100 uppercase tracking-[0.18em]">
+          Data centers & critical
+        </span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 mb-2">
+        <a href="#projects"
+           class="inline-flex items-center px-6 py-2.5 rounded-full text-[11px] tracking-[0.2em] uppercase
+                  font-semibold gold-btn shadow-md hover:shadow-lg transition">
+          View key projects
+        </a>
+        <a href="#services"
+           class="inline-flex items-center px-5 py-2 rounded-full text-[11px] tracking-[0.18em] uppercase
+                  font-medium border border-white/35 bg-white/5 hover:bg-white/10">
+          Our execution model
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: IMAGE COLLAGE -->
+    <div class="flex flex-col gap-4">
+      <div class="grid grid-cols-3 gap-4">
+        <!-- الصورة الرئيسية الكبيرة -->
+        <div class="col-span-2">
+          <div
+            class="relative rounded-3xl overflow-hidden bg-white/5 border border-white/15 glass-effect hero-photo-main group shadow-2xl">
+            <img src="assets/images/project-hero.png"
+                 alt="Engineers and workforce on site"
+                 class="w-full h-64 md:h-80 object-cover transition duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-4 left-4 text-white text-[11px] md:text-xs max-w-[230px]">
+              <div class="uppercase tracking-[0.22em] text-gray-200/80 mb-1">On-site execution</div>
+              <div class="text-gray-100/90">
+                Engineers, foremen & workforce under one HSE and PPE standard.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- صورتين صغيرين جنبها -->
+        <div class="flex flex-col gap-4">
+          <div
+            class="relative rounded-2xl overflow-hidden bg-white/5 border border-white/15 glass-effect hero-photo-small shadow-xl group">
+            <img src="assets/images/project-hero.png"
+                 alt="Structural works"
+                 class="w-full h-32 object-cover transition duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-2 left-3 text-[10px] uppercase tracking-[0.18em] text-gray-100/90">
+              Structure & concrete
+            </div>
+          </div>
+          <div
+            class="relative rounded-2xl overflow-hidden bg-white/5 border border-white/15 glass-effect hero-photo-small shadow-xl group">
+            <img src="assets/images/project-hero.png"
+                 alt="Finishing works"
+                 class="w-full h-32 object-cover transition duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-2 left-3 text-[10px] uppercase tracking-[0.18em] text-gray-100/90">
+              Fit-out & finishing
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ستاتس تحت الصور -->
+      <div class="glass-effect rounded-2xl p-5 bg-black/55 border border-white/15 backdrop-blur-md">
+        <p class="text-[11px] tracking-[0.22em] uppercase text-gray-300 mb-2">
+          Delivery Snapshot
+        </p>
+        <div class="grid grid-cols-3 gap-4 text-[11px] md:text-sm text-gray-100">
+          <div>
+            <div class="uppercase tracking-[0.18em] text-gray-300">Legacy</div>
+            <div class="mt-1 font-semibold tracking-[0.18em] text-white">25+ YEARS</div>
+          </div>
+          <div>
+            <div class="uppercase tracking-[0.18em] text-gray-300">Workforce</div>
+            <div class="mt-1 font-semibold tracking-[0.18em] text-white">750+ PEOPLE</div>
+          </div>
+          <div>
+            <div class="uppercase tracking-[0.18em] text-gray-300">Regions</div>
+            <div class="mt-1 font-semibold tracking-[0.18em] text-white">UAE · EGYPT · KSA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-2xl opacity-70 select-none">
+    ↓
+  </div>
+</section>
+
+
+
+
+
+<!-- LEGACY & FOUNDATION -->
+<section id="legacy" class="py-20 bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8">
+    <div class="grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-12 xl:gap-16 items-start">
+
+      <!-- LEFT COLUMN -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold font-[Playfair_Display] leading-tight">
+            <span class="text-amber-500 dark:text-amber-400">Legacy</span>
+            <span class="text-slate-900 dark:text-slate-100"> &amp; Foundation</span>
+          </h2>
+          <div class="h-1 w-28 bg-gradient-to-r from-amber-300 to-amber-600 mt-4"></div>
+        </div>
+
+        <p class="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed max-w-xl">
+          Our story began in <span class="font-semibold text-amber-600 dark:text-amber-300">1996</span>, when a small
+          contracting team in the UAE started delivering residential and commercial projects known for
+          <span class="font-semibold text-slate-900 dark:text-slate-100">precision and reliability</span>.
+        </p>
+
+        <p class="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed max-w-xl">
+          Over the years, this humble beginning evolved into a
+          <span class="font-semibold text-slate-900 dark:text-slate-100">regional enterprise</span> — Agile Group,
+          operating across the MENA region with companies in the UAE, Egypt, and Saudi Arabia.
+        </p>
+
+        <p class="text-lg md:text-xl font-semibold text-amber-700 dark:text-amber-300 italic">
+          “What we build… builds our name”
+        </p>
+
+        <!-- MINI STATS -->
+        <div class="pt-6 border-t border-slate-200 dark:border-slate-800 max-w-xl">
+          <p class="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-3">
+            At a Glance
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <!-- Years of experience -->
+            <div
+              class="rounded-2xl border border-amber-400/60 bg-white/90 dark:bg-slate-900/60 
+                     dark:border-amber-400/40 px-4 py-3 backdrop-blur-sm">
+              <p class="text-[11px] uppercase tracking-[0.18em] text-amber-700/80 dark:text-amber-200/80">
+                Experience
+              </p>
+              <p class="text-2xl font-semibold text-amber-700 dark:text-amber-300 mt-1">25+</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Years building across the region
+              </p>
+            </div>
+
+            <!-- Countries -->
+            <div
+              class="rounded-2xl border border-slate-200 dark:border-slate-600/60 
+                     bg-white/90 dark:bg-slate-900/60 px-4 py-3 backdrop-blur-sm">
+              <p class="text-[11px] uppercase tracking-[0.18em] text-slate-600 dark:text-slate-300/80">
+                Countries
+              </p>
+              <p class="text-2xl font-semibold text-slate-900 dark:text-slate-50 mt-1">3</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">UAE · Egypt · KSA</p>
+            </div>
+
+            <!-- Group companies -->
+            <div
+              class="rounded-2xl border border-slate-200 dark:border-slate-600/60 
+                     bg-white/90 dark:bg-slate-900/60 px-4 py-3 sm:col-auto col-span-2 backdrop-blur-sm">
+              <p class="text-[11px] uppercase tracking-[0.18em] text-slate-600 dark:text-slate-300/80">
+                Group Companies
+              </p>
+              <p class="text-sm font-semibold text-slate-900 dark:text-slate-50 mt-1">
+                Agile Experts · Makany · Deft Experts
+              </p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Integrated contracting &amp; fit-out ecosystem
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN – TIMELINE -->
+      <div class="relative">
+        <!-- glow (أهدى في اللايت، أقوى في الدارك) -->
+        <div
+          class="absolute -inset-[1px] rounded-3xl 
+                 bg-gradient-to-br from-amber-400/20 via-amber-300/5 to-transparent 
+                 dark:from-amber-500/60 dark:via-amber-400/20 dark:to-transparent
+                 opacity-70 blur-sm">
+        </div>
+
+        <div
+          class="relative rounded-3xl bg-white/95 dark:bg-slate-900/90 
+                 border border-slate-200/80 dark:border-white/5 
+                 shadow-[0_18px_45px_rgba(15,23,42,0.25)] overflow-hidden">
+
+          <!-- header -->
+          <div class="flex items-center justify-between px-6 md:px-8 py-5 border-b border-slate-200/80 dark:border-white/5">
+            <div>
+              <p class="text-xs uppercase tracking-[0.18em] text-amber-700/80 dark:text-amber-300/80">
+                1996 — 2024
+              </p>
+              <h3 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-slate-50 mt-1">
+                Timeline of Growth
+              </h3>
+            </div>
+            <div class="hidden md:flex flex-col items-end text-[11px] text-slate-500 dark:text-slate-400 gap-0.5">
+              <span>UAE • Egypt • KSA</span>
+              <span class="text-amber-700 dark:text-amber-300 font-semibold">
+                25+ Years of Trust
+              </span>
+            </div>
+          </div>
+
+          <!-- body -->
+          <div class="px-6 md:px-8 py-8">
+            <div class="space-y-8">
+
+              <!-- 1996 -->
+              <div class="relative pl-10 pr-6 md:pr-24 py-6 border-l border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div
+                  class="pointer-events-none select-none absolute inset-y-0 right-0 flex items-center justify-end pr-2">
+                  <span
+                    class="font-extrabold leading-none text-[95px] md:text-[120px]
+                           text-slate-900/5 dark:text-white/5 translate-x-10">
+                    1996
+                  </span>
+                </div>
+                <span class="absolute left-[10px] top-7 h-3 w-3 rounded-full bg-amber-500"></span>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">1996</p>
+                <p class="text-sm md:text-base text-slate-800 dark:text-slate-200 leading-relaxed">
+                  Began contracting operations in the UAE.
+                </p>
+              </div>
+
+              <!-- 2008 -->
+              <div class="relative pl-10 pr-6 md:pr-24 py-6 border-l border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div
+                  class="pointer-events-none select-none absolute inset-y-0 right-0 flex items-center justify-end pr-2">
+                  <span
+                    class="font-extrabold leading-none text-[95px] md:text-[120px]
+                           text-slate-900/5 dark:text-white/5 translate-x-10">
+                    2008
+                  </span>
+                </div>
+                <span class="absolute left-[10px] top-7 h-3 w-3 rounded-full bg-amber-500"></span>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">2008</p>
+                <p class="text-sm md:text-base text-slate-800 dark:text-slate-200 leading-relaxed">
+                  Established Makany General Contracting to strengthen operations.
+                </p>
+              </div>
+
+              <!-- 2010 -->
+              <div class="relative pl-10 pr-6 md:pr-24 py-6 border-l border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div
+                  class="pointer-events-none select-none absolute inset-y-0 right-0 flex items-center justify-end pr-2">
+                  <span
+                    class="font-extrabold leading-none text-[95px] md:text-[120px]
+                           text-slate-900/5 dark:text-white/5 translate-x-10">
+                    2010
+                  </span>
+                </div>
+                <span class="absolute left-[10px] top-7 h-3 w-3 rounded-full bg-amber-500"></span>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">2010</p>
+                <p class="text-sm md:text-base text-slate-800 dark:text-slate-200 leading-relaxed">
+                  Formed Agile Group with a regional expansion strategy.
+                </p>
+              </div>
+
+              <!-- 2011 -->
+              <div class="relative pl-10 pr-6 md:pr-24 py-6 border-l border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div
+                  class="pointer-events-none select-none absolute inset-y-0 right-0 flex items-center justify-end pr-2">
+                  <span
+                    class="font-extrabold leading-none text-[95px] md:text-[120px]
+                           text-slate-900/5 dark:text-white/5 translate-x-10">
+                    2011
+                  </span>
+                </div>
+                <span class="absolute left-[10px] top-7 h-3 w-3 rounded-full bg-amber-500"></span>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">2011</p>
+                <p class="text-sm md:text-base text-slate-800 dark:text-slate-200 leading-relaxed">
+                  Expanded operations into Egypt.
+                </p>
+              </div>
+
+              <!-- 2016 -->
+              <div class="relative pl-10 pr-6 md:pr-24 py-6 border-l border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div
+                  class="pointer-events-none select-none absolute inset-y-0 right-0 flex items-center justify-end pr-2">
+                  <span
+                    class="font-extrabold leading-none text-[95px] md:text-[120px]
+                           text-slate-900/5 dark:text-white/5 translate-x-10">
+                    2016
+                  </span>
+                </div>
+                <span class="absolute left-[10px] top-7 h-3 w-3 rounded-full bg-amber-500"></span>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">2016</p>
+                <p class="text-sm md:text-base text-slate-800 dark:text-slate-200 leading-relaxed">
+                  Founded Rwad Al Mustaqbal as a focused contracting arm in the UAE.
+                </p>
+              </div>
+
+              <!-- 2020 -->
+              <div class="relative pl-10 pr-6 md:pr-24 py-6 border-l border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div
+                  class="pointer-events-none select-none absolute inset-y-0 right-0 flex items-center justify-end pr-2">
+                  <span
+                    class="font-extrabold leading-none text-[95px] md:text-[120px]
+                           text-slate-900/5 dark:text-white/5 translate-x-10">
+                    2020
+                  </span>
+                </div>
+                <span class="absolute left-[10px] top-7 h-3 w-3 rounded-full bg-amber-500"></span>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">2020</p>
+                <p class="text-sm md:text-base text-slate-800 dark:text-slate-200 leading-relaxed">
+                  Established Deft Experts for fit-out &amp; acoustic solutions.
+                </p>
+              </div>
+
+              <!-- 2024 -->
+              <div class="relative pl-10 pr-6 md:pr-24 py-6 border-l border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div
+                  class="pointer-events-none select-none absolute inset-y-0 right-0 flex items-center justify-end pr-2">
+                 <span
+                    class="font-extrabold leading-none text-[95px] md:text-[120px]
+                           text-slate-900/5 dark:text-white/5 translate-x-10">
+                    2024
+                  </span>
+                </div>
+                <span class="absolute left-[10px] top-7 h-3 w-3 rounded-full bg-amber-500"></span>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-amber-700 dark:text-amber-300 mb-1">2024</p>
+                <p class="text-sm md:text-base text-slate-900 dark:text-slate-50 leading-relaxed font-semibold">
+                  Formed Agile Prime General Contracting L.L.C. as the main contracting entity in Dubai.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- footer -->
+          <div
+            class="flex flex-wrap items-center gap-2.5 px-6 md:px-8 pb-5 
+                   border-t border-slate-200/80 dark:border-white/5 
+                   bg-slate-50/90 dark:bg-slate-900/80">
+            <span
+              class="px-3 py-1.5 rounded-full text-[11px] tracking-wide 
+                     border border-slate-300 dark:border-slate-600 
+                     text-slate-700 dark:text-slate-200">
+              UAE
+            </span>
+            <span
+              class="px-3 py-1.5 rounded-full text-[11px] tracking-wide 
+                     border border-slate-300 dark:border-slate-600 
+                     text-slate-700 dark:text-slate-200">
+              Egypt
+            </span>
+            <span
+              class="px-3 py-1.5 rounded-full text-[11px] tracking-wide 
+                     border border-slate-300 dark:border-slate-600 
+                     text-slate-700 dark:text-slate-200">
+              KSA
+            </span>
+            <span
+              class="ml-auto px-3 py-1.5 rounded-full text-[11px] tracking-wide 
+                     bg-amber-500/10 dark:bg-amber-400/15 
+                     border border-amber-500/60 dark:border-amber-300/60 
+                     text-amber-700 dark:text-amber-200">
+              25+ YEARS OF TRUST
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+    <!-- VISION / MISSION / VALUES -->
+    <section class="py-20 bg-white dark:bg-black">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 font-playfair">
+          Vision · Mission · <span class="gold-text">Values</span>
+        </h2>
+        <div class="h-1 w-32 bg-gradient-to-r from-amber-400 to-amber-700 mb-10"></div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="light-glass p-7 rounded-xl border-t-4 gold-border fade-in">
+            <h3 class="text-2xl font-bold gold-text mb-3">Vision</h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm md:text-base">
+              To become one of the top 10 contracting companies in the GCC and Middle East by 2030 through leadership in
+              quality, innovation, and sustainability.
+            </p>
+          </div>
+
+          <div class="light-glass p-7 rounded-xl border-t-4 gold-border fade-in">
+            <h3 class="text-2xl font-bold gold-text mb-3">Mission</h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm md:text-base">
+              Transform the construction industry by delivering innovative, high-quality, and sustainable projects that
+              exceed client expectations while maintaining safety, time, and cost balance.
+            </p>
+          </div>
+
+          <div class="light-glass p-7 rounded-xl border-t-4 gold-border fade-in">
+            <h3 class="text-2xl font-bold gold-text mb-3">Core Values</h3>
+            <ul class="space-y-2 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+              <li><span class="font-semibold">Integrity</span> – Honesty & transparency</li>
+              <li><span class="font-semibold">Quality</span> – Perfection in every detail</li>
+              <li><span class="font-semibold">Safety</span> – Our highest priority</li>
+              <li><span class="font-semibold">Time</span> – On schedule, always</li>
+              <li><span class="font-semibold">Innovation</span> – Technology-driven</li>
+              <li><span class="font-semibold">Sustainability</span> – Building responsibly</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+ <!-- WHO WE ARE -->
+<section class="py-20 bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+      <div>
+        <p class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-100/60 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 text-sm font-semibold tracking-wide uppercase">
+          Who We Are
+          <span class="h-1 w-6 bg-gradient-to-r from-amber-400 to-amber-700 rounded-full"></span>
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mt-4 font-playfair">
+          Built on <span class="gold-text">Engineering</span> &amp; Execution
+        </h2>
+        <div class="h-1 w-32 bg-gradient-to-r from-amber-400 to-amber-700 mt-4"></div>
+      </div>
+
+      <div class="max-w-md text-sm md:text-base text-gray-600 dark:text-gray-300">
+        Agile Prime General Contracting L.L.C. operates as a main contractor with integrated in-house capabilities — from structure to finishing.
+      </div>
+    </div>
+
+    <!-- Content Card -->
+    <div class="relative overflow-hidden rounded-3xl border border-amber-500/20 bg-white/80 dark:bg-gray-800/80 shadow-xl backdrop-blur-sm">
+      <!-- Decorative background number / pattern -->
+      <div class="pointer-events-none absolute -right-10 -top-10 opacity-5 text-[140px] font-extrabold tracking-tight gold-text">
+        25
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 p-10 md:p-12">
+        <!-- Left: Main narrative -->
+        <div class="space-y-5">
+          <h3 class="text-2xl md:text-3xl font-bold">
+            Agile Prime General Contracting L.L.C.
+          </h3>
+
+          <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            A modern construction company built on 25 years of field experience and engineering excellence. Operating as
+            a Main Contractor, we execute all works internally — civil, MEP, fit-out, material supply, and workforce
+            management — under one integrated system.
+          </p>
+
+          <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            Unlike traditional subcontractors, we own and manage our skilled manpower, giving us full control over
+            quality, timelines, and cost efficiency.
+          </p>
+
+          <div class="border-l-4 border-amber-500 pl-4 mt-4">
+            <p class="text-xl md:text-2xl font-playfair gold-text italic leading-snug">
+              "Engineered for precision. Managed for time."
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Highlight blocks / quick facts -->
+        <div class="space-y-6">
+          <!-- Tags row -->
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">
+              Main Contractor
+            </span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-100">
+              In-house Workforce
+            </span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-50 text-slate-700 border border-slate-200">
+              Civil · MEP · Fit-out
+            </span>
+          </div>
+
+          <!-- Stats cards -->
+          <div class="grid sm:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-gray-200/70 dark:border-gray-700 bg-gray-50/60 dark:bg-gray-900/40 p-4">
+              <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+                Experience
+              </p>
+              <p class="text-2xl font-bold gold-text leading-none">
+                25+
+              </p>
+              <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                years of regional know-how
+              </p>
+            </div>
+
+            <div class="rounded-2xl border border-gray-200/70 dark:border-gray-700 bg-gray-50/60 dark:bg-gray-900/40 p-4">
+              <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+                Delivery Model
+              </p>
+              <p class="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                Fully in-house
+              </p>
+              <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                manpower, supervision &amp; execution
+              </p>
+            </div>
+
+            <div class="rounded-2xl border border-gray-200/70 dark:border-gray-700 bg-gray-50/60 dark:bg-gray-900/40 p-4">
+              <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+                Scope
+              </p>
+              <p class="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                Civil · MEP · Fit-out
+              </p>
+              <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                plus material supply &amp; workforce
+              </p>
+            </div>
+          </div>
+
+          <!-- Key bullet points -->
+          <div class="mt-2 space-y-2 text-sm text-gray-700 dark:text-gray-300">
+            <div class="flex items-start gap-2">
+              <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+              <p>Single-point responsibility from structure to handover.</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+              <p>Tighter control over quality, timelines, and cost.</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+              <p>Aligned with developers, consultants, and end-users’ expectations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+   <!-- SERVICES -->
+<section id="services" class="py-20 bg-white dark:bg-black">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+      <div>
+        <p class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-100/60 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 text-xs font-semibold tracking-wide uppercase">
+          Our Services
+          <span class="h-1 w-6 bg-gradient-to-r from-amber-400 to-amber-700 rounded-full"></span>
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold mt-3 font-playfair">
+          Integrated <span class="gold-text">Main Contracting</span> Scope
+        </h2>
+        <div class="h-1 w-32 bg-gradient-to-r from-amber-400 to-amber-700 mt-4"></div>
+      </div>
+
+      <p class="max-w-md text-sm md:text-base text-gray-600 dark:text-gray-300">
+        From structure and services to finishing and site control, Agile Prime delivers a fully integrated contracting
+        scope through in-house teams, trusted partners, and technology-driven management.
+      </p>
+    </div>
+
+    <!-- Service Tags / Categories -->
+    <div class="flex flex-wrap gap-2 mb-8 text-xs font-semibold">
+      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100 border border-slate-200/70 dark:border-slate-700">
+        Core Construction
+      </span>
+      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100 border border-slate-200/70 dark:border-slate-700">
+        Building Services (MEP)
+      </span>
+      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100 border border-slate-200/70 dark:border-slate-700">
+        Fit-out &amp; Finishes
+      </span>
+      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100 border border-slate-200/70 dark:border-slate-700">
+        Workforce &amp; Supply
+      </span>
+      <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100 border border-slate-200/70 dark:border-slate-700">
+        Innovation &amp; Control
+      </span>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- Civil & Structural -->
+      <div
+        class="light-glass p-7 rounded-2xl fade-in border border-gray-200/60 dark:border-gray-800 hover:border-amber-500/70 hover:-translate-y-1 transition-all duration-200">
+        <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+          Core Construction
+        </p>
+        <h3 class="text-xl font-bold gold-text mb-4">Civil &amp; Structural Works</h3>
+        <ul class="space-y-2 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Reinforced concrete &amp; foundations</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Structural steel, formwork &amp; shoring</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Façade interfaces &amp; waterproofing</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Site development &amp; external works</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- MEP -->
+      <div
+        class="light-glass p-7 rounded-2xl fade-in border border-gray-200/60 dark:border-gray-800 hover:border-amber-500/70 hover:-translate-y-1 transition-all duration-200">
+        <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+          Building Services
+        </p>
+        <h3 class="text-xl font-bold gold-text mb-4">MEP Works</h3>
+        <ul class="space-y-2 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>HVAC, ventilation &amp; ducting systems</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Electrical power, lighting &amp; low current</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Plumbing, drainage &amp; water supply networks</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Firefighting, fire alarm &amp; life safety systems</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Fit-Out & Finishing -->
+      <div
+        class="light-glass p-7 rounded-2xl fade-in border border-gray-200/60 dark:border-gray-800 hover:border-amber-500/70 hover:-translate-y-1 transition-all duration-200">
+        <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+          Interiors &amp; Architecture
+        </p>
+        <h3 class="text-xl font-bold gold-text mb-4">Fit-Out &amp; Finishing</h3>
+        <ul class="space-y-2 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Gypsum partitions &amp; suspended ceilings</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Flooring (marble, porcelain, tiles, parquet)</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Joinery, doors &amp; decorative woodwork</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Acoustic treatments &amp; specialized finishes</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Workforce Management -->
+      <div
+        class="light-glass p-7 rounded-2xl fade-in border border-gray-200/60 dark:border-gray-800 hover:border-amber-500/70 hover:-translate-y-1 transition-all duration-200">
+        <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+          In-House Teams
+        </p>
+        <h3 class="text-xl font-bold gold-text mb-4">Workforce Management</h3>
+        <ul class="space-y-2 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Skilled in-house civil, MEP &amp; finishing teams</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Regular safety training &amp; site induction</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Quality-focused supervisors &amp; foremen</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Full trade coverage across project lifecycle</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Material Supply -->
+      <div
+        class="light-glass p-7 rounded-2xl fade-in border border-gray-200/60 dark:border-gray-800 hover:border-amber-500/70 hover:-translate-y-1 transition-all duration-200">
+        <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+          Supply &amp; Procurement
+        </p>
+        <h3 class="text-xl font-bold gold-text mb-4">Material Supply</h3>
+        <ul class="space-y-2 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Porcelain, marble &amp; architectural finishes</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Sanitary ware, mixers &amp; accessories</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Lighting systems &amp; decorative fixtures</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Electrical fixtures &amp; power accessories</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Innovation & Tech -->
+      <div
+        class="light-glass p-7 rounded-2xl fade-in border border-gray-200/60 dark:border-gray-800 hover:border-amber-500/70 hover:-translate-y-1 transition-all duration-200">
+        <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+          Project Control
+        </p>
+        <h3 class="text-xl font-bold gold-text mb-4">Innovation &amp; Tech</h3>
+        <ul class="space-y-2 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>BIM 3D modelling &amp; coordination</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Drone site monitoring &amp; progress capture</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>ERP-linked cost &amp; resource management</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-[6px] h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+            <span>Real-time dashboards for project stakeholders</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- LEADERSHIP -->
+<section id="team" class="py-20 bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- HEADER -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+      <div>
+        <p class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-100/60 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 text-xs font-semibold tracking-[0.22em] uppercase">
+          Leadership
+          <span class="h-1 w-6 bg-gradient-to-r from-amber-400 to-amber-700 rounded-full"></span>
+        </p>
+        <h2 class="text-4xl md:text-5xl font-bold font-playfair mt-4 mb-3">
+          Leadership <span class="gold-text">Team</span>
+        </h2>
+        <div class="h-1 w-32 bg-gradient-to-r from-amber-400 to-amber-700"></div>
+      </div>
+      <div class="max-w-xl space-y-2 text-sm md:text-base text-gray-600 dark:text-gray-400">
+        <p>
+          A hands-on leadership team of engineers and builders managing time, quality, and manpower under one unified
+          vision across UAE, Egypt, and Saudi Arabia.
+        </p>
+        <p class="text-xs md:text-[13px] uppercase tracking-[0.18em] text-gray-400">
+          BUILT BY ENGINEERS · POWERED BY OUR WORKFORCE
+        </p>
+      </div>
+    </div>
+
+    <!-- SNAPSHOT BAR -->
+    <div class="mb-12 grid sm:grid-cols-3 gap-4 text-sm">
+      <div class="light-glass rounded-2xl border border-gray-200/70 dark:border-gray-700/70 px-5 py-4">
+        <p class="text-[11px] tracking-[0.22em] uppercase text-gray-400 mb-1">
+          Engineering Leaders
+        </p>
+        <p class="text-2xl font-semibold gold-text leading-tight">4</p>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+          Core directors leading design, execution, and operations.
+        </p>
+      </div>
+      <div class="light-glass rounded-2xl border border-gray-200/70 dark:border-gray-700/70 px-5 py-4">
+        <p class="text-[11px] tracking-[0.22em] uppercase text-gray-400 mb-1">
+          Average Experience
+        </p>
+        <p class="text-2xl font-semibold gold-text leading-tight">20+ Years</p>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+          Decades of combined site and management experience.
+        </p>
+      </div>
+      <div class="light-glass rounded-2xl border border-gray-200/70 dark:border-gray-700/70 px-5 py-4">
+        <p class="text-[11px] tracking-[0.22em] uppercase text-gray-400 mb-1">
+          Workforce Under Control
+        </p>
+        <p class="text-2xl font-semibold gold-text leading-tight">750+ People</p>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+          In-house manpower across civil, MEP, and finishing trades.
+        </p>
+      </div>
+    </div>
+
+    <!-- CARDS WRAPPER -->
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <!-- Osama -->
+      <article
+        class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg p-6 flex gap-5 hover:-translate-y-1 hover:shadow-2xl hover:border-amber-500/80 transition-all duration-200">
+        <div class="shrink-0 flex flex-col items-center gap-2">
+          <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-apGold shadow-md bg-gray-200">
+            <img src="assets/images/Eng/EngOsama.jpg"
+                 alt="Eng. Osama Ahmed Aly Zahra"
+                 class="w-full h-full object-cover">
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-[10px] font-semibold tracking-[0.18em] uppercase text-amber-700 dark:text-amber-300">
+            Managing Director
+          </span>
+        </div>
+        <div>
+          <p class="text-[11px] tracking-[0.22em] uppercase text-gray-400 mb-1">
+            Managing Director · Co-Founder
+          </p>
+          <h3 class="text-lg md:text-xl font-bold text-apGold mb-2">
+            Eng. Osama Ahmed Aly Zahra
+          </h3>
+          <p class="text-sm md:text-[15px] text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+            Over 25 years in contracting and project leadership across the UAE and the region. Drives the group’s
+            strategy, client relationships, and transformation into a main contractor.
+          </p>
+          <p class="text-[13px] italic text-gray-500 dark:text-gray-400 border-l-2 border-amber-500/60 pl-3">
+            “Leadership starts with clarity, then discipline, then consistency on every site.”
+          </p>
+        </div>
+      </article>
+
+      <!-- Tamer -->
+      <article
+        class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg p-6 flex gap-5 hover:-translate-y-1 hover:shadow-2xl hover:border-amber-500/80 transition-all duration-200">
+        <div class="shrink-0 flex flex-col items-center gap-2">
+          <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-apGold shadow-md bg-gray-200">
+            <img src="assets/images/eng.jpg"
+                 alt="Eng. Tamer Al-Gharbawy"
+                 class="w-full h-full object-cover">
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-[10px] font-semibold tracking-[0.18em] uppercase text-amber-700 dark:text-amber-300">
+            Chief Engineer
+          </span>
+        </div>
+        <div>
+          <p class="text-[11px] tracking-[0.22em] uppercase text-gray-400 mb-1">
+            Chief Engineer · Co-Founder
+          </p>
+          <h3 class="text-lg md:text-xl font-bold text-apGold mb-2">
+            Eng. Tamer Al-Gharbawy
+          </h3>
+          <p class="text-sm md:text-[15px] text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+            Technical lead for structural works, acoustic solutions, and complex engineering packages, ensuring that
+            design intent, detailing, and execution stay aligned on every project.
+          </p>
+          <p class="text-[13px] italic text-gray-500 dark:text-gray-400 border-l-2 border-amber-500/60 pl-3">
+            “Engineering is successful only when it can be built, maintained, and trusted.”
+          </p>
+        </div>
+      </article>
+
+      <!-- Sherif -->
+      <article
+        class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg p-6 flex gap-5 hover:-translate-y-1 hover:shadow-2xl hover:border-amber-500/80 transition-all duration-200">
+        <div class="shrink-0 flex flex-col items-center gap-2">
+          <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-apGold shadow-md bg-gray-200">
+            <img src="assets/images/Eng/EngShrif.jpg"
+                 alt="Eng. Sherif Mahmoud Emara"
+                 class="w-full h-full object-cover">
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-[10px] font-semibold tracking-[0.18em] uppercase text-amber-700 dark:text-amber-300">
+            Operations Director
+          </span>
+        </div>
+        <div>
+          <p class="text-[11px] tracking-[0.22em] uppercase text-gray-400 mb-1">
+            Operations Director
+          </p>
+          <h3 class="text-lg md:text-xl font-bold text-apGold mb-2">
+            Eng. Sherif Mahmoud Emara
+          </h3>
+          <p class="text-sm md:text-[15px] text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+            Oversees daily operations, manpower deployment, and resource control, with a focus on productivity, safety,
+            and smooth coordination between all trades on site.
+          </p>
+          <p class="text-[13px] italic text-gray-500 dark:text-gray-400 border-l-2 border-amber-500/60 pl-3">
+            “Operations succeed when every team understands the programme and owns their part.”
+          </p>
+        </div>
+      </article>
+
+      <!-- Ashraf -->
+      <article
+        class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg p-6 flex gap-5 hover:-translate-y-1 hover:shadow-2xl hover:border-amber-500/80 transition-all duration-200">
+        <div class="shrink-0 flex flex-col items-center gap-2">
+          <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-apGold shadow-md bg-gray-200">
+            <img src="assets/images/eng.jpg"
+                 alt="Eng. Mohamed Ashraf Abdelsalam"
+                 class="w-full h-full object-cover">
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-500/10 text-[10px] font-semibold tracking-[0.18em] uppercase text-amber-700 dark:text-amber-300">
+            Head of Design
+          </span>
+        </div>
+        <div>
+          <p class="text-[11px] tracking-[0.22em] uppercase text-gray-400 mb-1">
+            Head of Design Team
+          </p>
+          <h3 class="text-lg md:text-xl font-bold text-apGold mb-2">
+            Eng. Mohamed Ashraf Abdelsalam
+          </h3>
+          <p class="text-sm md:text-[15px] text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+            Leads architectural and technical design teams, bridging concept and constructability while supporting
+            sustainable, modern building solutions for hospitality, residential, and commercial assets.
+          </p>
+          <p class="text-[13px] italic text-gray-500 dark:text-gray-400 border-l-2 border-amber-500/60 pl-3">
+            “Good design is what allows a building to serve, not just to stand.”
+          </p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- PROJECTS -->
+<section id="projects" class="py-20 bg-white dark:bg-black">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- HEADER -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+      <div>
+        <p class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-100/60 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 text-xs font-semibold tracking-[0.22em] uppercase">
+          Projects
+          <span class="h-1 w-6 bg-gradient-to-r from-amber-400 to-amber-700 rounded-full"></span>
+        </p>
+
+        <h2 class="text-4xl md:text-5xl font-bold font-playfair mt-4 mb-3">
+          Project <span class="gold-text">Portfolio</span>
+        </h2>
+
+        <div class="h-1 w-32 bg-gradient-to-r from-amber-400 to-amber-700"></div>
+      </div>
+
+      <p class="max-w-xl text-sm md:text-base text-gray-600 dark:text-gray-400">
+        A curated selection of high-rise, hospitality, retail and infrastructure projects executed by our core teams
+        across the UAE — showcasing our construction excellence.
+      </p>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+      <!-- Project 1 – DAMAC Paramount Towers -->
+      <a href="project-damac.html"
+         class="group relative block overflow-hidden rounded-3xl shadow-xl border border-gray-200/70 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <img src="assets/images/damac.webp"
+             alt="DAMAC Paramount Towers"
+             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent"></div>
+
+        <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-20">
+          <span class="px-2.5 py-1 rounded-full bg-black/70 text-[11px] uppercase tracking-[0.14em] text-amber-300">
+            High-rise
+          </span>
+          <span class="px-2.5 py-1 rounded-full bg-black/60 text-[10px] uppercase tracking-[0.14em] text-gray-100">
+            Dubai
+          </span>
+        </div>
+
+        <div class="absolute inset-x-0 bottom-0 p-6 z-20">
+          <h3 style="color: white !important;" class="text-lg md:text-xl font-semibold text-white mb-1">
+            DAMAC Paramount Towers
+          </h3>
+          <p class="text-xs text-gray-300 mb-3">
+            Concrete &amp; structural works for multi-tower development.
+          </p>
+          <div class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+            <span class="inline-block px-3 py-1.5 rounded-lg bg-amber-500 text-xs font-semibold text-black tracking-wide shadow-md">
+              View Details →
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 2 – Address Sky View -->
+      <a href="project-damac.html"
+         class="group relative block overflow-hidden rounded-3xl shadow-xl border border-gray-200/70 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <img src="assets/images/damac.webp"
+             alt="Address Sky View"
+             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent"></div>
+
+        <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-20">
+          <span class="px-2.5 py-1 rounded-full bg-black/70 text-[11px] uppercase tracking-[0.14em] text-amber-300">
+            Hospitality
+          </span>
+          <span class="px-2.5 py-1 rounded-full bg-black/60 text-[10px] uppercase tracking-[0.14em] text-gray-100">
+            Dubai
+          </span>
+        </div>
+
+        <div class="absolute inset-x-0 bottom-0 p-6 z-20">
+          <h3 style="color: white !important;" class="text-lg md:text-xl font-semibold text-white mb-1">
+            Address Sky View
+          </h3>
+          <p class="text-xs text-gray-300 mb-3">
+            Civil &amp; finishing works for hotel and serviced apartments.
+          </p>
+          <div class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+            <span class="inline-block px-3 py-1.5 rounded-lg bg-amber-500 text-xs font-semibold text-black tracking-wide shadow-md">
+              View Details →
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 3 – Address Fountain Views -->
+      <a href="project-damac.html"
+         class="group relative block overflow-hidden rounded-3xl shadow-xl border border-gray-200/70 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <img src="assets/images/damac.webp"
+             alt="Address Fountain Views"
+             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent"></div>
+
+        <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-20">
+          <span class="px-2.5 py-1 rounded-full bg-black/70 text-[11px] uppercase tracking-[0.14em] text-amber-300">
+            Mixed-use
+          </span>
+          <span class="px-2.5 py-1 rounded-full bg-black/60 text-[10px] uppercase tracking-[0.14em] text-gray-100">
+            Downtown Dubai
+          </span>
+        </div>
+
+        <div class="absolute inset-x-0 bottom-0 p-6 z-20">
+          <h3 style="color: white !important;" class="text-lg md:text-xl font-semibold text-white mb-1">
+            Address Fountain Views
+          </h3>
+          <p class="text-xs text-gray-300 mb-3">
+            Civil works &amp; high-end finishing for towers and podium.
+          </p>
+          <div class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+            <span class="inline-block px-3 py-1.5 rounded-lg bg-amber-500 text-xs font-semibold text-black tracking-wide shadow-md">
+              View Details →
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 4 – Rotana Jaddaf Hotel -->
+      <a href="project-damac.html"
+         class="group relative block overflow-hidden rounded-3xl shadow-xl border border-gray-200/70 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <img src="assets/images/damac.webp"
+             alt="Rotana Jaddaf Hotel"
+             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent"></div>
+
+        <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-20">
+          <span class="px-2.5 py-1 rounded-full bg-black/70 text-[11px] uppercase tracking-[0.14em] text-amber-300">
+            Hospitality
+          </span>
+          <span class="px-2.5 py-1 rounded-full bg-black/60 text-[10px] uppercase tracking-[0.14em] text-gray-100">
+            Al Jaddaf · Dubai
+          </span>
+        </div>
+
+        <div class="absolute inset-x-0 bottom-0 p-6 z-20">
+          <h3 style="color: white !important;" class="text-lg md:text-xl font-semibold text-white mb-1">
+            Rotana Jaddaf Hotel
+          </h3>
+          <p class="text-xs text-gray-300 mb-3">
+            Full interior fit-out for 318 keys plus public areas.
+          </p>
+          <div class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+            <span class="inline-block px-3 py-1.5 rounded-lg bg-amber-500 text-xs font-semibold text-black tracking-wide shadow-md">
+              View Details →
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 5 – Etisalat Data Center -->
+      <a href="project-damac.html"
+         class="group relative block overflow-hidden rounded-3xl shadow-xl border border-gray-200/70 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <img src="assets/images/damac.webp"
+             alt="Etisalat Data Center"
+             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent"></div>
+
+        <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-20">
+          <span class="px-2.5 py-1 rounded-full bg-black/70 text-[11px] uppercase tracking-[0.14em] text-amber-300">
+            Data Center
+          </span>
+          <span class="px-2.5 py-1 rounded-full bg-black/60 text-[10px] uppercase tracking-[0.14em] text-gray-100">
+            UAE
+          </span>
+        </div>
+
+        <div class="absolute inset-x-0 bottom-0 p-6 z-20">
+          <h3 style="color: white !important;" class="text-lg md:text-xl font-semibold text-white mb-1">
+            Etisalat Data Center
+          </h3>
+          <p class="text-xs text-gray-300 mb-3">
+            Civil &amp; concrete works for critical infrastructure facility.
+          </p>
+          <div class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+            <span class="inline-block px-3 py-1.5 rounded-lg bg-amber-500 text-xs font-semibold text-black tracking-wide shadow-md">
+              View Details →
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 6 – Dragon Mart Expansion -->
+      <a href="project-damac.html"
+         class="group relative block overflow-hidden rounded-3xl shadow-xl border border-gray-200/70 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        <img src="assets/images/damac.webp"
+             alt="Dragon Mart Expansion"
+             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent"></div>
+
+        <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-20">
+          <span class="px-2.5 py-1 rounded-full bg-black/70 text-[11px] uppercase tracking-[0.14em] text-amber-300">
+            Retail &amp; Mall
+          </span>
+          <span class="px-2.5 py-1 rounded-full bg-black/60 text-[10px] uppercase tracking-[0.14em] text-gray-100">
+            Dubai
+          </span>
+        </div>
+
+        <div class="absolute inset-x-0 bottom-0 p-6 z-20">
+          <h3 style="color: white !important;" class="text-lg md:text-xl font-semibold text-white mb-1 ">
+            Dragon Mart Expansion
+          </h3>
+          <p class="text-xs text-gray-300 mb-3">
+            Civil works for retail, entertainment and back-of-house facilities.
+          </p>
+          <div class="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+            <span class="inline-block px-3 py-1.5 rounded-lg bg-amber-500 text-xs font-semibold text-black tracking-wide shadow-md">
+              View Details →
+            </span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CLIENTS -->
+<section id="clients" class="relative py-20 bg-gray-50 dark:bg-black overflow-hidden">
+  <!-- خلفية جradient خفيفة -->
+  <div class="pointer-events-none absolute inset-0 opacity-60 dark:opacity-80">
+    <div class="absolute -top-32 -left-20 w-72 h-72 rounded-full bg-amber-400/10 blur-3xl"></div>
+    <div class="absolute -bottom-40 -right-10 w-80 h-80 rounded-full bg-amber-600/10 blur-3xl"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+
+    <!-- HEADER -->
+    <div class="mb-10 text-center">
+      <p
+        class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-100/70 dark:bg-amber-500/10
+               text-amber-700 dark:text-amber-300 text-[11px] font-semibold tracking-[0.22em] uppercase">
+        Clients & Partners
+        <span class="h-1 w-6 bg-gradient-to-r from-amber-400 to-amber-700 rounded-full"></span>
+      </p>
+
+      <h2 class="text-3xl md:text-5xl font-bold font-playfair mt-4 mb-3">
+        Trusted by <span class="gold-text">Developers & Global Brands</span>
+      </h2>
+
+      <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        From landmark towers to hospitality destinations, our work stands behind some of the
+        region’s most recognizable names in real estate, retail, and infrastructure.
+      </p>
+
+      <div class="h-1 w-32 bg-gradient-to-r from-amber-400 to-amber-700 mx-auto mt-6"></div>
+    </div>
+
+    <!-- MARQUEE WALL -->
+    <div class="space-y-6 mt-8">
+
+      <!-- Row 1 -->
+      <div class="logo-marquee logo-marquee-1 rounded-3xl border border-gray-200/60 dark:border-gray-800/80 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl">
+        <div class="logo-track">
+          <!-- كرر نفس المجموعة مرتين علشان الموفمنت تبقى مستمرة -->
+          <div class="logo-group">
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Emaar" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Emaar" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Emaar" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Emaar" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Emaar" />
+            </div>
+          </div>
+
+          <div class="logo-group">
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Emaar" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Emaar" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Nakheel" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Rotana" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Etisalat" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="logo-marquee logo-marquee-2 rounded-3xl border border-gray-200/60 dark:border-gray-800/80 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl">
+        <div class="logo-track">
+          <div class="logo-group">
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Wafi" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Orascom" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="ACC" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="TAV" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Hospitality Group" />
+            </div>
+          </div>
+
+          <div class="logo-group">
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Wafi" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Orascom" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="ACC" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="TAV" />
+            </div>
+            <div class="logo-item">
+              <img src="assets/images/logo/PALMLOGO.webp" alt="Hospitality Group" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER LINE -->
+    <p class="text-center text-gray-600 dark:text-gray-400 mt-10 text-sm md:text-base italic">
+      “We are proud to be the main contractor trusted to deliver for visionary developers and operators across the region.”
+    </p>
+
+  </div>
+</section>
+
+
+
+
+  <!-- WHY CHOOSE US -->
+<section class="py-20 bg-white dark:bg-black">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- HEADER -->
+    <div class="text-center mb-14">
+      <h2 class="text-3xl md:text-4xl font-bold font-playfair">
+        Why <span class="gold-text">Choose Us</span>
+      </h2>
+      <div class="h-1 w-24 bg-gradient-to-r from-amber-400 to-amber-700 mx-auto mt-4"></div>
+      <p class="text-gray-600 dark:text-gray-400 mt-4 text-sm md:text-base max-w-xl mx-auto">
+        A contractor built on engineering discipline, controlled manpower, and predictable delivery.
+      </p>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid sm:grid-cols-2 gap-8">
+
+      <!-- ITEM -->
+      <div
+        class="group p-7 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/60 
+               hover:border-amber-500 transition-all duration-200 hover:shadow-lg">
+        
+        <div class="flex items-start gap-4">
+          <div class="p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/20">
+            <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M3 7h18M3 12h18M3 17h18" />
+            </svg>
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-lg gold-text mb-1">Full In-House Teams</h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              Civil, MEP, finishing, and site manpower — all controlled internally for efficiency and consistency.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ITEM -->
+      <div
+        class="group p-7 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/60 
+               hover:border-amber-500 transition-all duration-200 hover:shadow-lg">
+        
+        <div class="flex items-start gap-4">
+          <div class="p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/20">
+            <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M12 8v4l3 3m-3-3a4 4 0 110-8 4 4 0 010 8z" />
+            </svg>
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-lg gold-text mb-1">25+ Years Experience</h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              A regional engineering journey delivering hospitality, high-rise, commercial, and infrastructure assets.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ITEM -->
+      <div
+        class="group p-7 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/60 
+               hover:border-amber-500 transition-all duration-200 hover:shadow-lg">
+        
+        <div class="flex items-start gap-4">
+          <div class="p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/20">
+            <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M4 6h16M4 12h10M4 18h7" />
+            </svg>
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-lg gold-text mb-1">Scalable Capacity</h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              Structured teams built to deliver multiple large projects with stable supervision and quality control.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ITEM -->
+      <div
+        class="group p-7 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/60 
+               hover:border-amber-500 transition-all duration-200 hover:shadow-lg">
+        
+        <div class="flex items-start gap-4">
+          <div class="p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/20">
+            <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M8 7l4-4 4 4M12 3v18" />
+            </svg>
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-lg gold-text mb-1">Engineer-Led Management</h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              Leadership rooted in engineering principles — decisions based on logic, time, and technical accuracy.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER QUOTE -->
+    <div class="mt-12 text-center">
+      <p class="text-sm tracking-[0.2em] uppercase text-gray-500 dark:text-gray-400 mb-2">
+        Our Philosophy
+      </p>
+      <p class="text-xl md:text-2xl font-playfair gold-text italic">
+        “We don’t outsource excellence — we own it.”
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- QUALITY / SAFETY / SUSTAINABILITY -->
+<section class="py-20 bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- HEADER -->
+    <div class="mb-12">
+      <p class="inline-block px-4 py-1 rounded-full bg-amber-100/60 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 text-xs font-semibold tracking-[0.22em] uppercase">
+        Our Standards
+      </p>
+
+      <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-3 font-playfair">
+        Quality · Safety · <span class="gold-text">Sustainability</span>
+      </h2>
+
+      <div class="h-1 w-28 bg-gradient-to-r from-amber-400 to-amber-700"></div>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- QUALITY -->
+      <div class="group p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 hover:border-amber-500 transition-all duration-200 hover:shadow-lg">
+
+        <div class="flex items-center gap-4 mb-5">
+          <div class="p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/20">
+            <svg class="w-7 h-7 text-amber-600 dark:text-amber-400" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold gold-text">Quality</h3>
+        </div>
+
+        <ul class="space-y-3 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li>✔ ISO 9001 Certified</li>
+          <li>✔ Regular audits & inspections</li>
+          <li>✔ Zero Defect Policy</li>
+          <li>✔ Continuous improvement</li>
+        </ul>
+
+      </div>
+
+      <!-- SAFETY -->
+      <div class="group p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 hover:border-amber-500 transition-all duration-200 hover:shadow-lg">
+
+        <div class="flex items-center gap-4 mb-5">
+          <div class="p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/20">
+            <svg class="w-7 h-7 text-amber-600 dark:text-amber-400" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold gold-text">Safety</h3>
+        </div>
+
+        <ul class="space-y-3 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li>✔ Zero Accidents Goal</li>
+          <li>✔ Strict on-site procedures</li>
+          <li>✔ Continuous training</li>
+          <li>✔ ISO 45001 Certified</li>
+        </ul>
+
+      </div>
+
+      <!-- SUSTAINABILITY -->
+      <div class="group p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800 hover:border-amber-500 transition-all duration-200 hover:shadow-lg">
+
+        <div class="flex items-center gap-4 mb-5">
+          <div class="p-3 rounded-xl bg-amber-500/10 dark:bg-amber-500/20">
+            <svg class="w-7 h-7 text-amber-600 dark:text-amber-400" fill="none" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a9 9 0 00-9 9c0 7 9 11 9 11s9-4 9-11a9 9 0 00-9-9zm0 5v4m0 4h.01" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold gold-text">Sustainability</h3>
+        </div>
+
+        <ul class="space-y-3 text-gray-700 dark:text-gray-300 text-sm md:text-[15px]">
+          <li>✔ Energy-efficient systems</li>
+          <li>✔ Waste reduction & recycling</li>
+          <li>✔ Green building standards</li>
+          <li>✔ ISO 14001 Certified</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact" class="relative py-24 bg-white dark:bg-black overflow-hidden">
+
+  <!-- Decorative animated orbits -->
+  <div class="pointer-events-none absolute inset-0 opacity-[0.08]">
+    <div class="contact-orbit contact-orbit-1"></div>
+    <div class="contact-orbit contact-orbit-2"></div>
+  </div>
+
+  <div class="relative max-w-6xl mx-auto px-6">
+    <!-- Title -->
+    <div class="text-center md:text-left mb-14 fade-in">
+      <p class="uppercase tracking-[0.25em] text-[11px] text-gray-500 dark:text-gray-400 mb-3">
+        GET IN TOUCH
+      </p>
+      <h2 class="text-4xl md:text-5xl font-bold font-playfair leading-tight text-gray-900 dark:text-white">
+        Ready to <span class="gold-text">start a project</span><br class="hidden md:block">
+        or have a simple question?
+      </h2>
+      <div class="mt-4 h-[3px] w-40 bg-gradient-to-r from-amber-400 to-amber-700 rounded-full"></div>
+      <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm md:text-[15px] max-w-xl">
+        Reach out for collaborations, project inquiries, site visits, or any general questions — we’re always happy to connect.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-stretch">
+
+      <!-- LEFT SIDE: INFO + CHIPS -->
+      <div
+        class="group bg-gray-50 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl fade-in">
+
+        <h3 class="text-2xl font-semibold mb-5 text-gray-900 dark:text-white">
+          Contact Information
+        </h3>
+
+        <div class="space-y-6 text-sm md:text-[15px]">
+
+          <div class="flex gap-3 items-start">
+            <div
+              class="mt-1 h-9 w-9 rounded-full bg-amber-600/10 flex items-center justify-center border border-amber-600/40">
+              <span class="text-xs font-semibold text-amber-600">DXB</span>
+            </div>
+            <div>
+              <p class="font-semibold gold-text mb-1">Head Office – Dubai</p>
+              <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                Bay View Tower – Office 1708<br>
+                Business Bay, Dubai – UAE
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div
+              class="mt-1 h-9 w-9 rounded-full bg-amber-600/10 flex items-center justify-center border border-amber-600/40">
+              <span class="text-xs font-semibold text-amber-600">@</span>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-1">Email</p>
+              <p class="font-medium text-gray-900 dark:text-white">info@agileprimegc.com</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div
+              class="mt-1 h-9 w-9 rounded-full bg-amber-600/10 flex items-center justify-center border border-amber-600/40">
+              <span class="text-xs font-semibold text-amber-600">📞</span>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-1">Phone</p>
+              <p class="font-medium text-gray-900 dark:text-white">+971 52 520 3862</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chips: type of inquiry -->
+        <div class="mt-8">
+          <p class="text-xs uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-3">
+            TELL US HOW WE CAN HELP
+          </p>
+          <div class="flex flex-wrap gap-2 text-[11px]">
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full border border-amber-600/60 text-amber-700 dark:text-amber-300 bg-amber-50/60 dark:bg-amber-500/10">
+              New project inquiry
+            </span>
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
+              General question
+            </span>
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
+              Site visit / meeting
+            </span>
+          </div>
+        </div>
+
+        <!-- Small note -->
+        <p class="mt-6 text-[12px] text-gray-500 dark:text-gray-400">
+          We usually respond within one business day.
+        </p>
+      </div>
+
+      <!-- RIGHT SIDE: FORM WITH GRADIENT BORDER -->
+      <div class="fade-in">
+        <div
+          class="relative rounded-2xl bg-gradient-to-br from-amber-500/70 via-amber-700/70 to-amber-900/70 p-[1px] shadow-xl shadow-amber-900/20">
+          <div class="bg-white dark:bg-gray-950 rounded-2xl p-8 md:p-9">
+            <h3 class="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
+              Send us a message
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
+              Share any idea, project, or question — we’ll get back to you with the next step.
+            </p>
+
+            <form class="space-y-4">
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    class="w-full px-4 py-3 bg-white/90 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-sm transition-all"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    class="w-full px-4 py-3 bg-white/90 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-sm transition-all"
+                  />
+                </div>
+              </div>
+
+              <input
+                type="text"
+                placeholder="Subject (project, inquiry, collaboration...)"
+                class="w-full px-4 py-3 bg-white/90 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-sm transition-all"
+              />
+
+              <textarea
+                rows="4"
+                placeholder="Write your message here..."
+                class="w-full px-4 py-3 bg-white/90 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-sm transition-all resize-none"
+              ></textarea>
+
+              <div class="relative pt-2">
+                <!-- glow behind button -->
+                <div class="absolute inset-0 -top-1 flex justify-center pointer-events-none">
+                  <div class="w-40 h-8 bg-amber-500/40 blur-2xl"></div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="relative w-full md:w-auto px-8 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 hover:from-amber-500 hover:via-amber-600 hover:to-amber-800 shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-[2px]"
+                >
+                  <span>Send Message</span>
+                  <span class="text-lg leading-none">➝</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- LOCATION / OPERATIONS MAP -->
+<section id="location" class="py-20 bg-gray-50 dark:bg-gray-900 map-section-wrap">
+  <div class="map-bg-orbit"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative">
+
+    <!-- HEADER -->
+    <div class="mb-10">
+      <p
+        class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-100/60 dark:bg-amber-500/10
+               text-amber-700 dark:text-amber-300 text-xs font-semibold tracking-[0.22em] uppercase">
+        Locations & Reach
+        <span class="h-1 w-6 bg-gradient-to-r from-amber-400 to-amber-700 rounded-full"></span>
+      </p>
+
+      <h2 class="text-3xl md:text-4xl font-bold mt-4 mb-3 font-playfair">
+        Operations <span class="gold-text">Map</span>
+      </h2>
+
+      <div class="h-1 w-32 bg-gradient-to-r from-amber-400 to-amber-700"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+
+      <!-- LEFT TEXT -->
+      <div class="fade-in">
+        <p class="text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+          From our head office in
+          <span class="gold-text font-semibold">Business Bay — Dubai</span>,
+          Agile Prime coordinates projects across the UAE, Egypt and Saudi Arabia through one integrated
+          engineering and manpower network.
+        </p>
+
+        <div class="space-y-4 text-gray-700 dark:text-gray-300 text-sm md:text-base mb-6">
+          <div>
+            <p class="font-bold gold-text mb-1 text-sm uppercase tracking-[0.18em]">
+              Head Office · Dubai
+            </p>
+            <p class="leading-relaxed">
+              Bay View Tower – Office 1708<br>
+              Business Bay, Dubai – United Arab Emirates
+            </p>
+          </div>
+          <div>
+            <p class="font-bold gold-text mb-1 text-sm uppercase tracking-[0.18em]">
+              Regional Reach
+            </p>
+            <p class="leading-relaxed">
+              UAE (Dubai · Abu Dhabi) · Egypt · Saudi Arabia — one group ecosystem, multiple active sites.
+            </p>
+          </div>
+        </div>
+
+        <a href="https://maps.google.com/?q=Bay+View+Tower+Business+Bay+Dubai"
+           target="_blank"
+           class="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700
+                  text-white font-semibold rounded-full text-[11px] tracking-[0.18em] uppercase
+                  shadow-md transition-colors">
+          <span>Open in Google Maps</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- RIGHT CINEMATIC MAP -->
+      <div class="fade-in">
+        <div
+          class="map-shell-hero map-float relative h-72 md:h-96 rounded-3xl overflow-hidden
+                 border border-gray-200/70 dark:border-gray-700/70 shadow-xl bg-black/80">
+
+          <!-- MAP IFRAME -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.6531349230254!2d55.2676125757471!3d25.181187477721245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8d0b4cff63d03c11%3A0xdc37677ca70ca33d!2sAGILE%20PRIME%20GENERAL%20CONTRACTING!5e0!3m2!1sen!2sae!4v1763111590053!5m2!1sen!2sae"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="w-full h-full">
+          </iframe>
+
+          <!-- GLASS OVERLAY -->
+          <div class="map-glass-overlay pointer-events-none"></div>
+
+          <!-- RADAR + PIN -->
+          <div class="map-radar"></div>
+          <div class="map-pin-center"></div>
+
+          <!-- TOP TAG PILL -->
+          <div class="map-tag-pill">
+            BUSINESS BAY · DUBAI · AGILE PRIME
+          </div>
+
+          <!-- INFO CARD -->
+          <div class="map-info-card">
+            <div class="map-info-title">SITE ACCESS</div>
+            <div class="map-info-main">5 min — Sheikh Zayed Rd</div>
+            <div class="map-info-sub">
+              10 min — Downtown Dubai · 15 min — Dubai Design District
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer class="bg-gray-100 text-slate-800 dark:bg-black dark:text-white py-12">
+  <div class="max-w-6xl mx-auto px-6 border-t border-gray-300 dark:border-gray-800 pt-10">
+
+    <div class="grid md:grid-cols-4 gap-10 mb-10 text-sm">
+
+      <!-- Column 1 — Logo + Name -->
+      <div class="flex flex-col items-start">
+        <img 
+          src="assets/images/logo.png" 
+          alt="Agile Prime Logo"
+          class="h-14 w-auto mb-4 opacity-95 dark:opacity-100"
+        />
+
+        <h3 class="text-xl font-bold gold-text mb-1">AGILE PRIME</h3>
+        <p class="text-slate-600 dark:text-gray-400">General Contracting L.L.C</p>
+      </div>
+
+      <!-- Column 2 -->
+      <div>
+        <h4 class="font-semibold mb-3 gold-text">Services</h4>
+        <ul class="space-y-2 text-slate-600 dark:text-gray-400">
+          <li><a href="#services" class="hover:text-amber-500 transition">Civil Works</a></li>
+          <li><a href="#services" class="hover:text-amber-500 transition">MEP Solutions</a></li>
+          <li><a href="#services" class="hover:text-amber-500 transition">Fit-Out</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3 -->
+      <div>
+        <h4 class="font-semibold mb-3 gold-text">Company</h4>
+        <ul class="space-y-2 text-slate-600 dark:text-gray-400">
+          <li><a href="#about" class="hover:text-amber-500 transition">About Us</a></li>
+          <li><a href="#team" class="hover:text-amber-500 transition">Leadership</a></li>
+          <li><a href="#projects" class="hover:text-amber-500 transition">Projects</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4 -->
+      <div>
+        <h4 class="font-semibold mb-3 gold-text">Certifications</h4>
+        <ul class="space-y-2 text-slate-600 dark:text-gray-400">
+          <li>✓ ISO 9001</li>
+          <li>✓ ISO 14001</li>
+          <li>✓ ISO 45001</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="border-t border-gray-300 dark:border-gray-800 pt-6 text-center text-slate-600 dark:text-gray-500 text-xs md:text-sm">
+      <p>&copy; 2025 Agile Prime General Contracting L.L.C. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+ <!-- BACK TO TOP - PREMIUM BUTTON -->
+<button id="backToTop"
+  class="fixed bottom-6 right-6 z-50
+         flex items-center justify-center
+         w-12 h-12 rounded-full
+         shadow-[0_18px_45px_rgba(0,0,0,0.45)]
+         border border-amber-400/70
+         bg-black/70 dark:bg-black/80
+         text-amber-300 text-xl
+         opacity-0 pointer-events-none
+         transition-all duration-300">
+  <span class="back-to-top-arrow">↑</span>
+</button>
+
+  </div>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      htmlElement.classList.remove('dark');
+      body.classList.remove('dark');
+      themeToggle.textContent = '🌙';
+    } else {
+      htmlElement.classList.add('dark');
+      body.classList.add('dark');
+      themeToggle.textContent = '☀️';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (htmlElement.classList.contains('dark')) {
+        htmlElement.classList.remove('dark');
+        body.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeToggle.textContent = '🌙';
+      } else {
+        htmlElement.classList.add('dark');
+        body.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.textContent = '☀️';
+      }
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // Fade-in on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -80px 0px'
+    };
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+ <script>
+  const backToTop = document.getElementById("backToTop");
+
+  function updateScrollProgress() {
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - window.innerHeight;
+    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+    // نحدّث المتغيّر الجلوبال اللي في :root
+    document.documentElement.style.setProperty("--scroll-progress", progress.toFixed(2));
+
+    // إظهار / إخفاء الزر
+    if (scrollTop > 500) {
+      backToTop.classList.add("show");
+      backToTop.classList.remove("hide");
+    } else {
+      backToTop.classList.add("hide");
+      backToTop.classList.remove("show");
+    }
+  }
+
+  window.addEventListener("scroll", updateScrollProgress);
+  window.addEventListener("load", updateScrollProgress);
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+
+
+</body>
+</html>
